@@ -1,0 +1,23 @@
+import { StrictMode } from "react";
+import { createRoot } from "react-dom/client";
+import "@fontsource/inter/latin-400.css";
+import "@fontsource/inter/latin-500.css";
+import "@fontsource/inter/latin-600.css";
+import "@fontsource/inter/latin-ext-400.css";
+import "@fontsource/inter/latin-ext-500.css";
+import "@fontsource/inter/latin-ext-600.css";
+import "@fontsource/manrope/latin-700.css";
+import "@fontsource/manrope/latin-ext-700.css";
+import "@fontsource/saira-condensed/latin-500.css";
+import "@fontsource/saira-condensed/latin-600.css";
+import "@fontsource/saira-condensed/latin-ext-500.css";
+import "@fontsource/saira-condensed/latin-ext-600.css";
+import "./base.css";
+import "./wall.css";
+import { AlpicAirWall } from "./AlpicAirWall";
+
+createRoot(document.getElementById("root")!).render(
+  <StrictMode>
+    <AlpicAirWall />
+  </StrictMode>,
+);
