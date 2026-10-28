@@ -1,15 +1,12 @@
 /*
  * AlpicAir wall-mounted (air-to-air) units: content from alpicair.com (LV pages
- * and spec tables, October 2026). Photos of the indoor units come from
- * alpicair.com's own image cache (500×500, transparent); `crop` trims the
- * padding so each unit can hang on the wall at its real proportions.
+ * and spec tables, October 2026). Photos of the indoor units are alpicair.com's
+ * product shots, cut tight to each unit and kept in public/units/, so the site
+ * does not depend on hot-linking.
  */
 
 const SITE = "https://alpicair.com";
 
-export function alpicImage(path: string) {
-  return `${SITE}/image/cache/catalog/${path.split("/").map(encodeURIComponent).join("/")}-500x500.png`;
-}
 
 export type Spec = [label: string, value: string];
 export type Variant = { code: string; label: string; specs: Spec[] };
@@ -20,8 +17,8 @@ export type WallProduct = {
   kicker: string;
   /** indoor unit photo; empty until the product has one */
   img?: string;
-  /** visible part of the 500×500 photo as fractions: [left, top, right, bottom] */
-  crop?: [number, number, number, number];
+  /** pixel size of the photo (already cut tight to the unit) */
+  size?: [width: number, height: number];
   /** dark casing: gets a faint rim light so it reads against the wall */
   dark?: boolean;
   /** product announced but without photo and data yet */
@@ -48,8 +45,8 @@ export const PRODUCTS: WallProduct[] = [
     id: "fjord",
     name: "Fjord Prime",
     kicker: "Sienas tipa split sistēma · jaunums",
-    img: alpicImage("fjord/FJORD PRIME"),
-    crop: [0.034, 0.328, 0.964, 0.676],
+    img: "units/fjord-prime.webp",
+    size: [471, 180],
     desc: "Leģendārās Hyper Nordic sērijas pēctecis: patentēts divpakāpju kompresors ar EVI, palielināts ārējā bloka siltummainis un apsilde līdz −35 °C. Iebūvēts Wi-Fi ar Bluetooth, Cold Plasma ģenerators un iekšējais bloks no 19 dB(A).",
     highlights: [
       ["−35 °C", "apsilde līdz"],
@@ -66,8 +63,8 @@ export const PRODUCTS: WallProduct[] = [
     id: "hyper-nordic",
     name: "Hyper Nordic",
     kicker: "Sienas tipa split sistēma",
-    img: alpicImage("AWI_HRDC1A"),
-    crop: [0.072, 0.36, 0.924, 0.634],
+    img: "units/hyper-nordic.webp",
+    size: [432, 143],
     desc: "Augstas efektivitātes invertora kondicionieris ekstremālām temperatūrām. Darbojas kluss un spēj uzturēt telpā arī zemu temperatūru — līdz +8 °C.",
     highlights: [
       ["−30 °C", "apsilde līdz"],
@@ -86,8 +83,8 @@ export const PRODUCTS: WallProduct[] = [
     id: "premium-pro",
     name: "Premium PRO III",
     kicker: "Sienas tipa split sistēma",
-    img: alpicImage("Cosmo-A1-1"),
-    crop: [0.03, 0.34, 0.966, 0.626],
+    img: "units/premium-pro.webp",
+    size: [474, 149],
     desc: "Kluss un efektīvs AlpicAir Premium klases invertora kondicionieris. Plaša jaudu izvēle — no 1,5 kW mazai guļamistabai līdz 7,1 kW lielai dzīvojamajai telpai.",
     highlights: [
       ["8,4", "SEER līdz"],
@@ -109,8 +106,8 @@ export const PRODUCTS: WallProduct[] = [
     finish: "Black",
     dark: true,
     kicker: "Sienas tipa split sistēma",
-    img: alpicImage("AlpicAir-1"),
-    crop: [0.032, 0.34, 0.966, 0.64],
+    img: "units/trendy-black.webp",
+    size: [473, 156],
     desc: "Kluss un efektīvs Premium klases invertora kondicionieris melnā korpusā. Zems enerģijas patēriņš, vairāki darbības režīmi un LED ekrāns.",
     highlights: [
       ["8,5", "SEER līdz"],
@@ -129,8 +126,8 @@ export const PRODUCTS: WallProduct[] = [
     name: "Trendy",
     finish: "White",
     kicker: "Sienas tipa split sistēma",
-    img: alpicImage("trendy-white-1"),
-    crop: [0.014, 0.322, 0.984, 0.638],
+    img: "units/trendy-white.webp",
+    size: [491, 164],
     desc: "Tā pati Trendy sērija baltā korpusā — kluss Premium klases invertora kondicionieris ar LED ekrānu un vairākiem darbības režīmiem.",
     highlights: [
       ["8,5", "SEER līdz"],
@@ -149,10 +146,8 @@ export const PRODUCTS: WallProduct[] = [
     id: "eco-x",
     name: "Eco X",
     kicker: "Sienas tipa split sistēma",
-    img: alpicImage("ECO X"),
-    // the only Eco X photo shows both units; this window shows the indoor one
-    // (the unit renders with a 0.006 margin, so these sit just inside its edges)
-    crop: [0.02, 0.511, 0.75, 0.784],
+    img: "units/eco-x.webp",
+    size: [371, 143],
     desc: "Mūsdienīga un stilīga dizaina kondicionieris jebkuram interjeram. Swing režīms kustina žalūzijas, lai temperatūra telpā sadalītos vienmērīgi.",
     highlights: [
       ["6,7", "SEER līdz"],
@@ -169,6 +164,6 @@ export const PRODUCTS: WallProduct[] = [
   },
 ];
 
-export const LOGO = `${SITE}/image/catalog/alpaticair%20logo.png`;
+export const LOGO = "logo.webp";
 export const CONTACT = `${SITE}/contact`;
 export const HOME = `${SITE}/lv/`;

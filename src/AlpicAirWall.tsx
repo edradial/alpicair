@@ -27,9 +27,7 @@ const ORDER = PRODUCTS.map((p) => p.id);
 const byId = Object.fromEntries(PRODUCTS.map((p) => [p.id, p])) as Record<string, WallProduct>;
 
 function ratio(p: WallProduct) {
-  if (!p.crop) return FJORD_RATIO;
-  const [x0, y0, x1, y1] = p.crop;
-  return (x1 - x0) / (y1 - y0);
+  return p.size ? p.size[0] / p.size[1] : FJORD_RATIO;
 }
 function unitSize(p: WallProduct) {
   const r = ratio(p);
@@ -59,11 +57,10 @@ function useStageSize(ref: React.RefObject<HTMLElement | null>) {
   return size;
 }
 
-/* the indoor unit itself: the photo cropped to the unit, or a glass silhouette */
+/* the indoor unit itself: its photo, or a glass silhouette while it has none */
 function Unit({ p, className = "" }: { p: WallProduct; className?: string }) {
-  const r = ratio(p);
-  const style: CSSProperties = { aspectRatio: String(r) };
-  if (!p.img || !p.crop) {
+  const style: CSSProperties = { aspectRatio: String(ratio(p)) };
+  if (!p.img) {
     return (
       <span className={`alp-unit alp-unit-ghost ${className}`} style={style} aria-hidden="true">
         <span className="alp-ghost-brand">AlpicAir</span>
@@ -71,30 +68,9 @@ function Unit({ p, className = "" }: { p: WallProduct; className?: string }) {
       </span>
     );
   }
-  // pad the alpha bounds a little so anti-aliased edges are not clipped
-  const e = 0.006;
-  const x0 = Math.max(0, p.crop[0] - e);
-  const y0 = Math.max(0, p.crop[1] - e);
-  const x1 = Math.min(1, p.crop[2] + e);
-  const y1 = Math.min(1, p.crop[3] + e);
-  const cw = x1 - x0;
-  const ch = y1 - y0;
   return (
-    <span className={`alp-unit ${p.dark ? "is-dark" : ""} ${className}`} style={{ ...style, aspectRatio: String(cw / ch) }} aria-hidden="true">
-      <span className="alp-crop">
-        <img
-          src={p.img}
-          alt=""
-          decoding="async"
-          draggable={false}
-          style={{
-            width: `${100 / cw}%`,
-            height: `${100 / ch}%`,
-            left: `${(-x0 / cw) * 100}%`,
-            top: `${(-y0 / ch) * 100}%`,
-          }}
-        />
-      </span>
+    <span className={`alp-unit ${p.dark ? "is-dark" : ""} ${className}`} style={style} aria-hidden="true">
+      <img src={p.img} alt="" width={p.size?.[0]} height={p.size?.[1]} decoding="async" draggable={false} />
     </span>
   );
 }
