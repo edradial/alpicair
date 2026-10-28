@@ -71,6 +71,7 @@ function Unit({ p, className = "" }: { p: WallProduct; className?: string }) {
   return (
     <span className={`alp-unit ${p.dark ? "is-dark" : ""} ${className}`} style={style} aria-hidden="true">
       <img src={p.img} alt="" width={p.size?.[0]} height={p.size?.[1]} decoding="async" draggable={false} />
+      <span className="alp-shade" style={{ maskImage: `url("${p.img}")`, WebkitMaskImage: `url("${p.img}")` }} />
     </span>
   );
 }
@@ -132,6 +133,7 @@ function Slot({
       <span className="alp-wash" aria-hidden="true" />
       <span className="alp-lamp" aria-hidden="true" />
       <span className="alp-hang">
+        <span className="alp-cast" aria-hidden="true" />
         <Unit p={p} />
         {p.upcoming ? null : <Air />}
       </span>
@@ -179,6 +181,7 @@ function Detail({
           <span className="alp-wash" />
           <span className="alp-lamp" />
           <span className="alp-hang">
+            <span className="alp-cast" />
             <Unit p={p} />
             {p.upcoming ? null : <Air />}
           </span>
@@ -433,6 +436,7 @@ export function AlpicAirWall() {
         <span className="alp-fog" aria-hidden="true" />
         <Motes />
         <div className="alp-wall" style={wallStyle} inert={openId && !mobile ? true : undefined}>
+          <span className="alp-plaster" aria-hidden="true" />
           <span className="alp-cove" aria-hidden="true" />
           <div className="alp-intro">
             <p className="alp-eyebrow">AlpicAir · Feel cool</p>
