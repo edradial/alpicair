@@ -1,10 +1,14 @@
 /* ---- AlpicAir showroom wall (/alpicair) ---- */
 .alp {
-  --alp-ice: 191 230 255; /* light and air, rgb */
-  --alp-text: #eef4fa;
-  --alp-muted: #8fa3b6;
-  --alp-accent: #9fd4ff;
-  --alp-deep: 10 15 22; /* darkest wall tone, rgb */
+  /* AlpicAir brand: purple #5a3e98 on white / #f7f7f7 (alpicair.com) */
+  --alp-brand: #5a3e98;
+  --alp-brand-hi: #6c4db3;
+  --alp-brand-rgb: 90 62 152;
+  --alp-ice: 232 224 255; /* light and air: lavender white, rgb */
+  --alp-text: #f4f1fb;
+  --alp-muted: #a69dbd;
+  --alp-accent: #c2adf2;
+  --alp-deep: 13 9 24; /* darkest wall tone, rgb */
   position: relative;
   height: 100svh;
   overflow: hidden;
@@ -31,14 +35,15 @@
   align-items: center;
   justify-content: space-between;
   gap: 16px;
-  padding: 14px max(20px, env(safe-area-inset-right, 0px)) 14px max(20px, env(safe-area-inset-left, 0px));
-  background: linear-gradient(180deg, rgb(var(--alp-deep) / 0.85), rgb(var(--alp-deep) / 0));
+  padding: 6px max(20px, env(safe-area-inset-right, 0px)) 6px max(20px, env(safe-area-inset-left, 0px));
+  background: rgb(247 247 247 / 0.94);
+  border-bottom: 1px solid rgb(var(--alp-brand-rgb) / 0.25);
+  box-shadow: 0 10px 40px rgb(var(--alp-brand-rgb) / 0.25);
+  backdrop-filter: blur(12px);
 }
 .alp-logo img {
   height: 24px;
   width: auto;
-  filter: brightness(0) invert(1);
-  opacity: 0.92;
 }
 .alp-bar-nav {
   display: flex;
@@ -50,20 +55,24 @@
   align-items: center;
   padding: 0 12px;
   font-size: 14px;
-  color: var(--alp-muted);
+  font-weight: 500;
+  color: #666;
   transition: color 0.2s;
 }
 .alp-bar-nav a:hover {
-  color: var(--alp-text);
+  color: var(--alp-brand);
+}
+.alp-bar-nav a:last-child {
+  color: var(--alp-brand);
 }
 
-/* the room: night-blue wall, lit from the middle, with drifting haze */
+/* the room: deep AlpicAir-purple wall, lit from the middle, with drifting haze */
 .alp-stage {
   position: absolute;
   inset: 0;
   background:
-    radial-gradient(70% 55% at 50% 42%, #1d2a39 0%, rgb(29 42 57 / 0) 70%),
-    linear-gradient(180deg, #131c27 0%, #0f1720 55%, rgb(var(--alp-deep)) 100%);
+    radial-gradient(70% 55% at 50% 42%, #2b1f4a 0%, rgb(43 31 74 / 0) 70%),
+    linear-gradient(180deg, #1c1433 0%, #150f28 55%, rgb(var(--alp-deep)) 100%);
 }
 .alp-fog {
   position: fixed;
@@ -73,7 +82,7 @@
   background:
     radial-gradient(28% 22% at 30% 40%, rgb(var(--alp-ice) / 0.07), transparent 70%),
     radial-gradient(32% 26% at 72% 62%, rgb(var(--alp-ice) / 0.06), transparent 70%),
-    radial-gradient(24% 18% at 55% 20%, rgb(140 170 255 / 0.05), transparent 70%);
+    radial-gradient(24% 18% at 55% 20%, rgb(var(--alp-brand-rgb) / 0.18), transparent 70%);
   filter: blur(30px);
   animation: alp-drift 36s ease-in-out infinite alternate;
 }
@@ -143,7 +152,7 @@
   line-height: 1;
   letter-spacing: -0.035em;
   padding-bottom: 0.1em;
-  background: linear-gradient(180deg, #fff 30%, #b9d3ea);
+  background: linear-gradient(180deg, #fff 30%, #cdbdf3);
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
@@ -177,10 +186,10 @@
   height: 3px;
   translate: -50% 0;
   border-radius: 3px;
-  background: linear-gradient(90deg, rgb(255 255 255 / 0), #eaf6ff 16%, #fff 50%, #eaf6ff 84%, rgb(255 255 255 / 0));
+  background: linear-gradient(90deg, rgb(255 255 255 / 0), #efe9ff 16%, #fff 50%, #efe9ff 84%, rgb(255 255 255 / 0));
   box-shadow:
     0 0 10px 1px rgb(var(--alp-ice) / 0.5),
-    0 0 34px 6px rgb(var(--alp-ice) / 0.14);
+    0 0 34px 6px rgb(var(--alp-brand-rgb) / 0.55);
   opacity: 0.8;
   transition: opacity 0.5s, box-shadow 0.5s;
 }
@@ -194,7 +203,8 @@
   pointer-events: none;
   background:
     radial-gradient(ellipse 28% 18% at 50% 70px, rgb(var(--alp-ice) / 0.24), rgb(var(--alp-ice) / 0) 100%),
-    radial-gradient(ellipse 48% 80% at 50% 70px, rgb(var(--alp-ice) / 0.09), rgb(var(--alp-ice) / 0) 75%);
+    radial-gradient(ellipse 48% 80% at 50% 70px, rgb(var(--alp-ice) / 0.09), rgb(var(--alp-ice) / 0) 75%),
+    radial-gradient(ellipse 50% 60% at 50% 70px, rgb(var(--alp-brand-rgb) / 0.32), rgb(var(--alp-brand-rgb) / 0) 80%);
   opacity: 0.75;
   transition: opacity 0.6s;
   -webkit-mask-image: linear-gradient(180deg, transparent, #000 66px);
@@ -228,7 +238,7 @@
   opacity: 1;
   box-shadow:
     0 0 12px 2px rgb(var(--alp-ice) / 0.75),
-    0 0 50px 10px rgb(var(--alp-ice) / 0.22);
+    0 0 56px 12px rgb(var(--alp-brand-rgb) / 0.7);
 }
 .alp-slot:is(:hover, :focus-visible, .is-active) .alp-wash {
   opacity: 1;
@@ -481,7 +491,7 @@
   text-wrap: balance;
   outline: none;
   padding-bottom: 0.08em;
-  background: linear-gradient(180deg, #fff 35%, #b9d3ea);
+  background: linear-gradient(180deg, #fff 35%, #cdbdf3);
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
@@ -500,7 +510,7 @@
   margin: 16px 0 0;
   font-size: 16px;
   line-height: 1.6;
-  color: #c9d6e2;
+  color: #d6cfe6;
 }
 .alp-panel {
   position: absolute;
@@ -512,7 +522,7 @@
   padding: 24px;
   border: 1px solid rgb(255 255 255 / 0.1);
   border-radius: 22px;
-  background: linear-gradient(180deg, rgb(26 36 48 / 0.62), rgb(14 20 28 / 0.7));
+  background: linear-gradient(180deg, rgb(40 28 70 / 0.62), rgb(20 14 36 / 0.72));
   box-shadow:
     inset 0 1px 0 rgb(255 255 255 / 0.08),
     0 30px 60px rgb(0 0 0 / 0.35);
@@ -554,7 +564,7 @@
   margin: 0;
   font-size: 15px;
   line-height: 1.6;
-  color: #c9d6e2;
+  color: #d6cfe6;
 }
 .alp-soon span {
   display: block;
@@ -587,9 +597,9 @@
   border-color: rgb(255 255 255 / 0.5);
 }
 .alp-variants button.is-on {
-  background: #eef6ff;
-  border-color: #eef6ff;
-  color: #0b1118;
+  background: var(--alp-brand);
+  border-color: var(--alp-brand-hi);
+  color: #fff;
 }
 .alp-code {
   margin: 18px 0 0;
@@ -627,16 +637,17 @@
   align-items: center;
   justify-content: center;
   border-radius: 999px;
-  background: #eef6ff;
-  color: #0b1118;
+  background: var(--alp-brand);
+  color: #fff;
+  box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.18), 0 8px 24px rgb(var(--alp-brand-rgb) / 0.45);
   font-weight: 600;
   transition: box-shadow 0.3s, background 0.3s;
 }
 .alp-btn:hover {
-  background: #fff;
+  background: var(--alp-brand-hi);
   box-shadow:
-    0 0 0 4px rgb(var(--alp-ice) / 0.16),
-    0 0 36px rgb(var(--alp-ice) / 0.35);
+    0 0 0 4px rgb(var(--alp-brand-rgb) / 0.3),
+    0 0 40px rgb(var(--alp-brand-rgb) / 0.6);
 }
 .alp-link {
   display: inline-flex;
@@ -731,7 +742,7 @@
   overflow-y: auto;
   padding: 0 max(16px, env(safe-area-inset-right, 0px)) 104px max(16px, env(safe-area-inset-left, 0px));
   background:
-    radial-gradient(90% 40% at 50% 10%, #1d2a39, rgb(29 42 57 / 0) 75%),
+    radial-gradient(90% 40% at 50% 10%, #2b1f4a, rgb(43 31 74 / 0) 75%),
     rgb(var(--alp-deep));
   animation: alp-up 0.45s cubic-bezier(0.2, 0.8, 0.2, 1) both;
 }
@@ -788,7 +799,7 @@
   bottom: max(16px, env(safe-area-inset-bottom, 0px));
   padding: 6px 10px;
   border-radius: 999px;
-  background: rgb(14 20 28 / 0.85);
+  background: rgb(20 14 36 / 0.88);
   backdrop-filter: blur(12px);
 }
 @media (max-width: 899px) {

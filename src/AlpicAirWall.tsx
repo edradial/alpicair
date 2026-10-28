@@ -83,8 +83,8 @@ function Air() {
       <svg viewBox="0 0 100 60" preserveAspectRatio="none">
         <defs>
           <linearGradient id="alp-air-g" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0" stopColor="#bfe6ff" stopOpacity="0.9" />
-            <stop offset="1" stopColor="#bfe6ff" stopOpacity="0" />
+            <stop offset="0" stopColor="#e3d9ff" stopOpacity="0.9" />
+            <stop offset="1" stopColor="#e3d9ff" stopOpacity="0" />
           </linearGradient>
         </defs>
         <path d="M18 0 C 16 20, 8 38, 2 60" />
@@ -307,7 +307,7 @@ function Motes() {
         const y = m.y * h;
         const tw = 0.6 + 0.4 * Math.sin(t * 0.0012 + m.ph);
         ctx.beginPath();
-        ctx.fillStyle = `rgba(200, 228, 255, ${m.a * tw})`;
+        ctx.fillStyle = `rgba(222, 210, 255, ${m.a * tw})`;
         ctx.arc(x, y, m.r, 0, Math.PI * 2);
         ctx.fill();
       }
@@ -435,7 +435,7 @@ export function AlpicAirWall() {
         <div className="alp-wall" style={wallStyle} inert={openId && !mobile ? true : undefined}>
           <span className="alp-cove" aria-hidden="true" />
           <div className="alp-intro">
-            <p className="alp-eyebrow">AlpicAir · sienas kondicionieri</p>
+            <p className="alp-eyebrow">AlpicAir · Feel cool</p>
             <h1 className="alp-title">Gaiss, ko gribas apskatīt.</h1>
             <p className="alp-sub">Sešas sērijas vienā sienā. Izvēlieties iekārtu, lai to apskatītu tuvāk.</p>
           </div>
